@@ -3,4 +3,4 @@
 * The project have two parts is AI model and Theme to show result. Waiting for us ... :rocket: :rocket: :rocket:
 * The member of this project: [dtan986](https://www.linkedin.com/in/tan-duong-622189225/) and [anh147](https://www.linkedin.com/in/anh147/)
 
-this is <font color="red" >red</font> color
+this is <font color='red' > red </font> color
