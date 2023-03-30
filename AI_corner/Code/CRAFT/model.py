@@ -3,7 +3,7 @@ import numpy as np
 import torch
 import craft_utils
 import imgproc
-import craft
+import craft 
 
 class CraftTextDetector:
     def __init__(self, craft_model_path, link_refinement=False, cuda=True):

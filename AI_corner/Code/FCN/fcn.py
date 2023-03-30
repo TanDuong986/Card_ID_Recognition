@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision.models as models
 import torchvision
+from torchvision import transforms
 
 class FCN(nn.Module):
     def __init__(self, num_classes):
@@ -74,7 +75,7 @@ if __name__ == '__main__':
     num_epochs = 10
     for epoch in range(num_epochs):
         running_loss = 0.0
-        for i, data in enumerate(trainloader, 0):
+        for i, data in enumerate(train_loader, 0):
             inputs, labels = data
 
             # Zero the parameter gradients
@@ -99,7 +100,7 @@ if __name__ == '__main__':
     correct = 0
     total = 0
     with torch.no_grad():
-        for data in testloader:
+        for data in test_loader:
             images, labels = data
             outputs = model(images)
             _, predicted = torch.max(outputs.data, 1)
