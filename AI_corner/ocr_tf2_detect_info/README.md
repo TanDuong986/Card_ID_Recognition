@@ -2,7 +2,7 @@
 
 **Create dataset**
 
-Download data to root:
+First of all, download data to root:
 
 ```
 https://drive.google.com/drive/folders/1OL6BLQRKHdEx6mCToNgU9RQjf2thH6ha?usp=share_link
@@ -15,7 +15,7 @@ root
    |____src
 ```
 
-First of all, you need to modify all the path at
+You need to modify all the path at
 
 *   pretrained/pipeline.config
 *   2 files .ipynb (jupyter files)
