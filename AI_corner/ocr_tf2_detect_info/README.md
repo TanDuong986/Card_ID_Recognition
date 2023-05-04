@@ -1,4 +1,4 @@
-# Localize the needed text in ID card in fine-tuning pretrained tf2 object detection model
+# Localize the needed text in ID card by fine-tuning pretrained tf2 object detection model
 
 **Create dataset**
 
