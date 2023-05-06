@@ -119,7 +119,7 @@ class PyShine_OCR_APP(QtWidgets.QMainWindow):
 				self.y2 = self.y1+ height
 			if width >=10 and height >= 10  and self.image is not None:
 				self.crop = self.image[self.y1:self.y2, self.x1:self.x2]
-				cv2.imwrite('cropped.png',self.crop)
+				# cv2.imwrite('cropped.png',self.crop)
 				self.text = self.image_to_text(self.crop)
 				self.ui.textEdit.setText(str(self.text))
 			else:
