@@ -8,5 +8,5 @@ you can get more detail in [here](./AI_corner/Code)
 Run GUI
 * Step 1: Install Tesseract at [link](https://github.com/UB-Mannheim/tesseract/wiki)
 * Step 2: 
-cd Theme  python gui.py
+cd Theme\\python gui.py
 
