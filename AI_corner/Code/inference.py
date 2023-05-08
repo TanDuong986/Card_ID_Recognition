@@ -34,7 +34,7 @@ def ppTiny(csd): # preprocessing and read text for consider area small
     pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
     instance = Image.fromarray(cv2.cvtColor(gray,cv2.COLOR_GRAY2RGB))
     text = pytesseract.image_to_string(instance,lang='vie')
-    print(text)
+    return text
 
 
 def predict(pth_img,model,threshold = 0.5,sizee=(640,640)): # count number of object per class
@@ -89,7 +89,7 @@ def revert(pth_img,location):
             x2 = int(location[i]['xmax'])
             y2 = int(location[i]['ymax'])
             csd = use[y1:y2,x1:x2]
-            ppTiny(csd)
+            text += ppTiny(csd)
             cv2.imwrite(f'./output/{field[idx]}_{np.random.randint(1,5)}.jpg',csd)
             i +=1
         rs.append(text)
@@ -108,7 +108,6 @@ if __name__ =="__main__":
     out_path = os.path.join("./results/img",name_img) # image out
 
     model = torch.hub.load('ultralytics/yolov5', 'custom',path=weight["best"], force_reload=True)
-    sample = predict(img_path,model)
-    rs = revert(img_path,sample)
-    # for r in rs:
-    #     print(r)
+    sample = predict(img_path,model) # contain dictionary about location of each object
+    rs = revert(img_path,sample) # rs is list of text
+    
