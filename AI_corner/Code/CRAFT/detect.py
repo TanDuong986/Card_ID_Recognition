@@ -6,7 +6,7 @@ from model import CraftTextDetector
 detector = CraftTextDetector('craft_mlt_25k.pth', link_refinement=True)
 
 # Load the input image
-image = cv2.imread('input_image.jpg')
+image = cv2.imread('trung_nguyen.png')
 
 # Detect text in the image
 boxes, polys = detector.detect_text('input_image.jpg')
