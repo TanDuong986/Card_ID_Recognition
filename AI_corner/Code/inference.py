@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 import os
 from PIL import Image
-import cv2
 import gdown
 import math
 import matplotlib.pyplot as plt
@@ -110,4 +109,6 @@ if __name__ =="__main__":
     model = torch.hub.load('ultralytics/yolov5', 'custom',path=weight["best"], force_reload=True)
     sample = predict(img_path,model) # contain dictionary about location of each object
     rs = revert(img_path,sample) # rs is list of text
+    for r in rs : 
+        print(r)
     
