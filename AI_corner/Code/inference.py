@@ -9,6 +9,9 @@ import math
 import matplotlib.pyplot as plt
 import argparse
 import pytesseract
+import time
+
+from try_gray import filterText
 
 url = {"last" : "https://drive.google.com/uc?id=1-xrzOsPykarIaV1qAborzmnNbUTRwnoZ", 
        "best" : "https://drive.google.com/uc?id=1-eGX9PkWiEcD6mwKnqWyAmJoSovTh9vP"}
@@ -34,11 +37,7 @@ def ppTiny(csd): # preprocessing and read text for consider area small
     gray = cv2.threshold(gray,0,255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     kernel = np.ones((1,1),np.uint8)
     gray = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel)
-    
-    # gray = cv2.cvtColor(csd,cv2.COLOR_BGR2GRAY)
-    # gray = cv2.medianBlur(gray,3)
-    # gray = cv2.GaussianBlur(gray,(1,1),0)
-    # gray = cv2.threshold(gray,0,255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+
     export_fol = './output'
     if not os.path.exists(export_fol):
         os.makedirs(export_fol)
@@ -104,8 +103,9 @@ def revert(pth_img,location):
             x2 = int(location[i]['xmax'])
             y2 = int(location[i]['ymax'])
             csd = use[y1:y2,x1:x2]
-            text += ppTiny(csd)
-            cv2.imwrite(f'./output/{field[idx]}_{np.random.randint(1,5)}.jpg',csd)
+            # text += ppTiny(csd)
+            text += filterText(csd)
+            # cv2.imwrite(f'./output/{field[idx]}_{np.random.randint(1,5)}.jpg',csd)  # print small component to see
             i +=1
         rs.append(text)
     
@@ -113,6 +113,7 @@ def revert(pth_img,location):
 
         
 if __name__ =="__main__":
+    flag = time.time()
     init_()
     args = opt()
     img_path = args.img
@@ -122,6 +123,14 @@ if __name__ =="__main__":
     model = torch.hub.load( './yolov5', 'custom',source='local',path=weight["best"], force_reload=True)
     sample = predict(img_path,model) # contain dictionary about location of each object
     rs = revert(img_path,sample) # rs is list of text
-    for r in rs : 
-        print(r)
+    idd = rs[0]
+    name = rs[1]
+    date = rs[2]
+    home = rs[3]
+    add = rs[4]
+    field = ["id","name","date","home","add"]
+    for i,info in enumerate(rs):
+        print(f'{field[i]} is : {rs[i]}')
+    print(f'\nTime executed is {(time.time() - flag):.2f}')
+
     
