@@ -26,13 +26,29 @@ def init_():
         gdown.download(url["best"],"pths/best.pt")
 
 def ppTiny(csd): # preprocessing and read text for consider area small
+    h,w,_ = csd.shape
+    csd = cv2.resize(csd,(int(w*2),int(h*2)),interpolation=cv2.INTER_AREA)
     gray = cv2.cvtColor(csd,cv2.COLOR_BGR2GRAY)
     gray = cv2.medianBlur(gray,3)
-    gray = cv2.GaussianBlur(gray,(1,1),0)
+    gray = cv2.GaussianBlur(gray,(3,3),0)
     gray = cv2.threshold(gray,0,255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    kernel = np.ones((1,1),np.uint8)
+    gray = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel)
+    
+    # gray = cv2.cvtColor(csd,cv2.COLOR_BGR2GRAY)
+    # gray = cv2.medianBlur(gray,3)
+    # gray = cv2.GaussianBlur(gray,(1,1),0)
+    # gray = cv2.threshold(gray,0,255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    export_fol = './output'
+    if not os.path.exists(export_fol):
+        os.makedirs(export_fol)
+    filename = os.path.join(export_fol,"tmp.jpg")
+    cv2.imwrite(filename,gray)
+
     pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-    instance = Image.fromarray(cv2.cvtColor(gray,cv2.COLOR_GRAY2RGB))
-    text = pytesseract.image_to_string(instance,lang='vie')
+    # instance = Image.fromarray(cv2.cvtColor(gray,cv2.COLOR_GRAY2RGB))
+    text = pytesseract.image_to_string(Image.open(filename),lang='vie')
+    os.remove(filename)
     return text
 
 
@@ -96,9 +112,6 @@ def revert(pth_img,location):
     return rs
 
         
-        
-    
-
 if __name__ =="__main__":
     init_()
     args = opt()
@@ -106,7 +119,7 @@ if __name__ =="__main__":
     name_img = os.path.basename(img_path)
     out_path = os.path.join("./results/img",name_img) # image out
 
-    model = torch.hub.load('ultralytics/yolov5', 'custom',path=weight["best"], force_reload=True)
+    model = torch.hub.load( './yolov5', 'custom',source='local',path=weight["best"], force_reload=True)
     sample = predict(img_path,model) # contain dictionary about location of each object
     rs = revert(img_path,sample) # rs is list of text
     for r in rs : 
