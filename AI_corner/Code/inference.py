@@ -72,8 +72,7 @@ def opt():
 def revert(pth_img,location):
     img = cv2.imread(pth_img)
     prt = img.copy()  
-    use = img.copy()
-    cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
+    # cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     color = []
 
     for i in range(5): # 5 label
@@ -96,7 +95,7 @@ def revert(pth_img,location):
     i =0
     location.append({'name':'end'})
     for idx in range(len(field)):
-        text = ''
+        text = ""
         if field[i] == "name":
             sub = 1
         else:
@@ -106,7 +105,7 @@ def revert(pth_img,location):
             y1 = int(location[i]['ymin'])
             x2 = int(location[i]['xmax'])
             y2 = int(location[i]['ymax'])
-            csd = use[y1:y2,x1:x2]
+            csd = img[y1:y2,x1:x2]
             # text += ppTiny(csd)
             text += filterText(csd,sub)
             cv2.imwrite(f'./output/{field[idx]}.jpg',csd)  # print small component to see
@@ -115,9 +114,19 @@ def revert(pth_img,location):
     return rs
 
 def filID(id):
+    if len(id) == 0 or len(id) ==1:
+        return id
     idd = id.split()
     return max(idd,key=len)
-    
+
+def filN(text):
+    if len(text) == 0 or len(text) ==1:
+        return text
+    while text[0] == "," or text[0] == " ":
+        text = text[1:]
+    while text[-1] == "," or text[-1] ==" ":
+        text = text[:-1]
+    return text
         
 if __name__ =="__main__":
     flag = time.time()
@@ -131,10 +140,10 @@ if __name__ =="__main__":
     sample = predict(img_path,model) # contain dictionary about location of each object
     rs = revert(img_path,sample) # rs is list of text
     idd = filID(rs[0])
-    name = rs[1]
-    date = rs[2]
-    home = rs[3]
-    add = rs[4]
+    name = filN(rs[1])
+    date = filN(rs[2])
+    home = filN(rs[3])
+    add = filN(rs[4])
     field = ["id","name","date","home","add"]
     for i,info in enumerate([idd,name,date,home,add]):
         print(f'{field[i]} is : {info}')

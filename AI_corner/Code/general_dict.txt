@@ -5360,7 +5360,6 @@ Ngun
 Nguy
 Nguyên
 Nguyền
-Nguyện
 Nguyệt
 Nguây
 Nguôi
@@ -6902,7 +6901,6 @@ Quén
 Quéo
 Quét
 Quê
-Quên
 Quì
 Quình
 Quí
@@ -15593,7 +15591,6 @@ ngun
 nguy
 nguyên
 nguyền
-nguyện
 nguyệt
 nguây
 nguôi
@@ -17133,7 +17130,6 @@ quén
 quéo
 quét
 quê
-quên
 quì
 quình
 quí

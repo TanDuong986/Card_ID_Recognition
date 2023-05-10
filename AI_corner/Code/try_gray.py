@@ -13,7 +13,7 @@ from match_word import findM
 
 
 def pp(img):
-    gray = cv2.GaussianBlur(img,(5,5),0)
+    gray = cv2.GaussianBlur(img,(7,7),0)
     # cv2.imwrite("gausian3.jpg",gray)
     gray = cv2.medianBlur(gray,5)
     # cv2.imwrite("median4.jpg",gray)
