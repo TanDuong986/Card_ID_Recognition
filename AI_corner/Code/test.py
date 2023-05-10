@@ -1,13 +1,8 @@
-from vietocr.tool.predictor import Predictor
-from vietocr.tool.config import Cfg
-from PIL import Image
+import mmap
+from try_gray import filterText
+from match_word import findM
 
-config = Cfg.load_config_from_name('vgg_seq2seq')
-config['device'] = 'cpu'
+text ="MG"
 
-detector = Predictor(config)
+print(findM(text,False))
 
-pth = ".\\output\\add_1.jpg"
-img = Image.open(pth)
-s = detector.predict(img,return_prob=True)
-print(s)

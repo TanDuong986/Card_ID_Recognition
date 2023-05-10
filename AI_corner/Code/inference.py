@@ -97,6 +97,10 @@ def revert(pth_img,location):
     location.append({'name':'end'})
     for idx in range(len(field)):
         text = ''
+        if field[i] == "name":
+            sub = 1
+        else:
+            sub = 0
         while location[i]['name'] == field[idx]:
             x1 = int(location[i]['xmin'])
             y1 = int(location[i]['ymin'])
@@ -104,11 +108,10 @@ def revert(pth_img,location):
             y2 = int(location[i]['ymax'])
             csd = use[y1:y2,x1:x2]
             # text += ppTiny(csd)
-            text += filterText(csd)
-            # cv2.imwrite(f'./output/{field[idx]}_{np.random.randint(1,5)}.jpg',csd)  # print small component to see
+            text += filterText(csd,sub)
+            cv2.imwrite(f'./output/{field[idx]}_{np.random.randint(1,5)}.jpg',csd)  # print small component to see
             i +=1
         rs.append(text)
-    
     return rs
 
         
