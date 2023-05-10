@@ -13,26 +13,24 @@ from match_word import findM
 
 
 def pp(img):
-    gray = cv2.GaussianBlur(img,(7,7),0)
-    cv2.imwrite("gausian3.jpg",gray)
+    gray = cv2.GaussianBlur(img,(5,5),0)
+    # cv2.imwrite("gausian3.jpg",gray)
     gray = cv2.medianBlur(gray,5)
-    cv2.imwrite("median4.jpg",gray)
+    # cv2.imwrite("median4.jpg",gray)
     gray = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-    cv2.imwrite("thresh5.jpg",gray)
+    # cv2.imwrite("thresh5.jpg",gray)
     # gray = cv2.morphologyEx(gray, cv2.MORPH_CLOSE, kernel=np.ones((5,5),np.uint8))
     gray = cv2.morphologyEx(gray, cv2.MORPH_OPEN, kernel=np.ones((3,3),np.uint8))
-    cv2.imwrite("morphology6.jpg",gray)
+    # cv2.imwrite("morphology6.jpg",gray)
     # # gray = cv2.erode(gray,iterations=1,kernel=kernel)
     gray = cv2.erode(gray,iterations=1,kernel=np.ones((3,3),np.uint8))
-    cv2.imwrite("erode7.jpg",gray)
+    # cv2.imwrite("erode7.jpg",gray)
     return gray
 
 def textEx(image): # convert Image to raw text
     h,w,_ = image.shape
-    image = cv2.resize(image,(int(w*3.2),int(h*3.2)),interpolation=cv2.INTER_AREA)
-    cv2.imwrite("scale1.jpg",image)
-    # cv2.imshow("d",image)
-    # cv2.waitKey(1000)
+    image = cv2.resize(image,(int(w*3.1),int(h*3.1)),interpolation=cv2.INTER_AREA)
+    # cv2.imwrite("scale1.jpg",image)
     lab = cv2.cvtColor(image,cv2.COLOR_BGR2LAB) # l channel
     hsv = cv2.cvtColor(image,cv2.COLOR_BGR2HSV_FULL)
     l_channel,a,b = cv2.split(lab)
@@ -55,11 +53,13 @@ def textEx(image): # convert Image to raw text
     #     text = pytesseract.image_to_string(Image.open(filename),lang='vie')
     #     tO.append(text)
     #     os.remove(filename)
-    # plt.imshow(sample,cmap='gray')
-    # plt.show()
+    
     # Test on 3 channel______________
-    gray = pp(image[:,:,1]) # l_channel or v or image[:,:,1]
-    cv2.imwrite("lab2.jpg",l_channel)
+    key = (0.5*(l_channel) + 0.5*(image[:,:,1])).astype(np.uint8)
+    gray = pp(key) # l_channel or v or image[:,:,1]
+    plt.imshow(gray,cmap='gray')
+    plt.show()
+    # cv2.imwrite("lab2.jpg",l_channel)
     export_fol = './output'
     if not os.path.exists(export_fol):
         os.makedirs(export_fol)

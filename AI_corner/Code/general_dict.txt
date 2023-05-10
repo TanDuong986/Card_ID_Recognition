@@ -730,10 +730,6 @@ Bựa
 Bực
 Bựng
 Bựt
-C
-C,
-C.I.F
-C.i.f
 CA
 CC
 CD

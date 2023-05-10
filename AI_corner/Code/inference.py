@@ -109,11 +109,15 @@ def revert(pth_img,location):
             csd = use[y1:y2,x1:x2]
             # text += ppTiny(csd)
             text += filterText(csd,sub)
-            cv2.imwrite(f'./output/{field[idx]}_{np.random.randint(1,5)}.jpg',csd)  # print small component to see
+            cv2.imwrite(f'./output/{field[idx]}.jpg',csd)  # print small component to see
             i +=1
         rs.append(text)
     return rs
 
+def filID(id):
+    idd = id.split()
+    return max(idd,key=len)
+    
         
 if __name__ =="__main__":
     flag = time.time()
@@ -126,14 +130,14 @@ if __name__ =="__main__":
     model = torch.hub.load( './yolov5', 'custom',source='local',path=weight["best"], force_reload=True)
     sample = predict(img_path,model) # contain dictionary about location of each object
     rs = revert(img_path,sample) # rs is list of text
-    idd = rs[0]
+    idd = filID(rs[0])
     name = rs[1]
     date = rs[2]
     home = rs[3]
     add = rs[4]
     field = ["id","name","date","home","add"]
-    for i,info in enumerate(rs):
-        print(f'{field[i]} is : {rs[i]}')
+    for i,info in enumerate([idd,name,date,home,add]):
+        print(f'{field[i]} is : {info}')
     print(f'\nTime executed is {(time.time() - flag):.2f}')
 
     
