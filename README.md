@@ -10,3 +10,17 @@ Run GUI:
 * Step 2: 
 cd Theme  \\ python gui.py
 
+---
+Structure of this repo:
+```
+main
+|__AI_corner
+|          |__Code
+|          |__Data_OCR
+|
+|___Theme
+        |___output
+        |___pths
+        |___result
+```
+
