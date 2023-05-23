@@ -23,4 +23,12 @@ main
         |___pths
         |___result
 ```
+---
+main file for inference independently not use GUI is [inference code](./AI_corner/Code/inference.py)
+you can try:
+```
+cd ./AI_corner/Code
+python inference.py --img /img_valid/thuThi.jpg
+```
+If it not run, feel free to install missing dependencies. Contact me if you have any question: [dtan986](duongtanrb@gmai.com)
 
