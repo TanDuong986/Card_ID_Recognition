@@ -13,8 +13,8 @@ import time
 
 from try_gray import filterText
 
-url = {"last" : "https://drive.google.com/uc?id=1-xrzOsPykarIaV1qAborzmnNbUTRwnoZ", 
-       "best" : "https://drive.google.com/uc?id=1-eGX9PkWiEcD6mwKnqWyAmJoSovTh9vP"}
+url = {"last" : "https://drive.google.com/uc?id=1005fQoroH38H-HYfpU2W71mQycgq6mFm", 
+       "best" : "https://drive.google.com/uc?id=106qBJW_V-g2w1wmE0_bCw2LXN3UNQqs4"}
 
 weight = {"last" : "./pths/last.pt",
          "best" : "./pths/best.pt"}
